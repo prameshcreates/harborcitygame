@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0c1018;
+  --color-surface: #171d29;
+  --color-fg: #f4efe4;
+  --color-muted: #a39e92;
+  --color-primary: #f0b429;
+  --color-accent: #3dbeb6;
+  --color-danger: #e23d3d;
+  --color-border: #2c3548;
+  --font-display: "Oswald", "Arial Narrow", Impact, sans-serif;
+  --font-sans: "Outfit", "Avenir Next", "Segoe UI", sans-serif;
+  --radius-lg: 0.9rem;
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+    background: var(--color-bg);
+  }
+}
+
+.game-root {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  color: var(--color-fg);
+  background: var(--color-bg);
+  user-select: none;
+  touch-action: none;
+}
+
+.game-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 140px rgb(8 10 16 / 0.55);
+}
+
+.minimap-card {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  width: 11rem;
+  height: 11rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  background: rgb(12 16 24 / 0.72);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 0.35);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.minimap-card canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.touch-controls {
+  display: none;
+}
+
+.hud-speed {
+  position: absolute;
+  right: 1rem;
+  bottom: 12.75rem;
+  z-index: 10;
+  text-align: right;
+}
+
+.hud-prompt {
+  position: absolute;
+  left: 50%;
+  bottom: 2rem;
+  transform: translateX(-50%);
+  z-index: 10;
+  max-width: calc(100% - 2rem);
+}
+
+@media (pointer: coarse), (max-width: 840px) {
+  .touch-controls {
+    display: flex;
+  }
+
+  .minimap-card {
+    top: 4.5rem;
+    right: 0.75rem;
+    bottom: auto;
+    left: auto;
+    width: 6.75rem;
+    height: 6.75rem;
+  }
+
+  .hud-speed {
+    right: 0.75rem;
+    bottom: 11.25rem;
+  }
+
+  .hud-prompt {
+    bottom: 10.25rem;
+  }
+}
+
+.touch-controls {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 20;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0.75rem;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+
+.touch-controls > * {
+  pointer-events: auto;
+}
+
+.stick {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: rgb(23 29 41 / 0.72);
+  position: relative;
+  touch-action: none;
+}
+
+.stick-knob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin: -1.625rem 0 0 -1.625rem;
+  border-radius: 999px;
+  background: var(--color-primary);
+}
+
+.hold-btn {
+  min-width: 4.25rem;
+  min-height: 3.25rem;
+  padding: 0 0.9rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: rgb(23 29 41 / 0.82);
+  color: var(--color-fg);
+  font-family: var(--font-display);
+  letter-spacing: 0.06em;
+  font-size: 0.95rem;
+}
+
+.hold-btn.primary {
+  background: var(--color-primary);
+  color: var(--color-bg);
+  border-color: transparent;
+}
+
+.hold-btn.danger {
+  background: var(--color-danger);
+  color: var(--color-fg);
+  border-color: transparent;
+}
+
+.banner-pop {
+  animation: banner-in 240ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .banner-pop {
+    animation: none;
+  }
+}
+
+@keyframes banner-in {
+  from {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
